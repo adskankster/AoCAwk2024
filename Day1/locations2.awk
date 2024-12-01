@@ -9,23 +9,20 @@ END {
     runningTotal = 0
 
     for (i in col1) {
-        left = col1[i]
         
-        found = 0
         foundCount = 0
 
         for (j = 1; j <= n2; j++) {
 
-            if (col2[j] == left) {
-                found = 1
+            if (col2[j] == col1[i]) {
                 foundCount++
-            } else {
-                if (found == 1)
-                    break
+            } else if (foundCount > 0) {
+                break
             }
+            
         }
 
-        runningTotal += (left * foundCount)
+        runningTotal += (col1[i] * foundCount)
     }
 
     print runningTotal
