@@ -17,6 +17,11 @@ BEGIN {
             antennae[$i][0]++
             antennae[$i][antennae[$i][0]]["x"] = i
             antennae[$i][antennae[$i][0]]["y"] = NR
+
+            an0 = i "," NR
+            if (!(an0 in antinodes)) {
+                antinodes[an0] = 1
+            }
         }
     }
 
@@ -35,34 +40,41 @@ END {
                 x2 = antennae[a][i]["x"]
                 y2 = antennae[a][i]["y"]
 
-                dx = (x2 - x1)
-                dy = (y2 - y1)
+                dx = x2 - x1
+                dy = y2 - y1
 
                 an1x = x1 - dx
                 an1y = y1 - dy
 
-                if ((an1x >= 1) && (an1x <= NF) && (an1y >= 1) && (an1y <= NR)) {
+                while ((an1x >= 1) && (an1x <= NF) && (an1y >= 1) && (an1y <= NR)) {
                     an1 = an1x "," an1y
                     if (!(an1 in antinodes)) {
                         antinodes[an1] = 1
                     }
+
+                    an1x = an1x - dx
+                    an1y = an1y - dy
                 }
 
                 an2x = x2 + dx
                 an2y = y2 + dy
 
-                if ((an2x >= 1) && (an2x <= NF) && (an2y >= 1) && (an2y <= NR)) {
+                while ((an2x >= 1) && (an2x <= NF) && (an2y >= 1) && (an2y <= NR)) {
                     an2 = an2x "," an2y
                     if (!(an2 in antinodes)) {
                         antinodes[an2] = 1
                     }
+
+                    an2x = an2x + dx
+                    an2y = an2y + dy
                 }
             }
         }
     }
 
     max = -1
-    for (count in antinodes) {
+    asorti(antinodes, antinodes2)
+    for (count in antinodes2) {
         max++
     }
     print max
