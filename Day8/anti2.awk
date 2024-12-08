@@ -73,8 +73,7 @@ END {
     }
 
     max = -1
-    asorti(antinodes, antinodes2)
-    for (count in antinodes2) {
+    for (count in antinodes) {
         max++
     }
     print max
