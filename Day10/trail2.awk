@@ -1,13 +1,11 @@
 BEGIN {
     FS = ""
     map[0][0] = 0
-    top[0][0] = 0
 }
 
 /^.+$/ {
     for (i = 1; i <= NF; i++) {
         map[i][NR] = $i
-        if ($i == 9) top[i][NR] = 0
     }
 }
 
@@ -16,8 +14,6 @@ END {
         for (y = 1; y <= NR; y++) {
             if (map[x][y] == 0) {
                 checkPoint(x, y)
-                clearTops()
-                th++
             }
         }
     }
@@ -25,21 +21,12 @@ END {
     print map[0][0]
 }
 
-function clearTops() {
-    for (a in top) {
-        for (b in top[a]) {
-            top[a][b] = 0
-        }
-    }
-}
-
 function checkPoint(x, y,    z) {
 
     z = map[x][y]
 
-    if (z == 9 && top[x][y] == 0) {
+    if (z == 9) {
         map[0][0]++
-        top[x][y] = 1
         return
     }
 
